@@ -18,4 +18,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  header: {
+    textAlign: 'center',
+    fontSize: 22,
+    marginBottom: 10,
+  },
 })

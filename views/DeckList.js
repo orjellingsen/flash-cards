@@ -22,7 +22,7 @@ class DeckList extends Component {
     const { decks } = this.state
     return (
       <Content style={styles.content}>
-        <Text>Deck List</Text>
+        <Text style={styles.header}>All Decks:</Text>
         {decks ? (
           Object.entries(decks).map(([key, value]) => {
             const questions = value.questions ? value.questions.length : 0
@@ -38,7 +38,7 @@ class DeckList extends Component {
             )
           })
         ) : (
-          <Text>No decks to display</Text>
+          <Text>There are no decks to display. Please add a new deck.</Text>
         )}
       </Content>
     )
