@@ -1,48 +1,45 @@
 import React, { Component, Fragment } from 'react'
-import {
-  Container,
-  Button,
-  Text,
-  Content,
-  Card,
-  CardItem,
-  Body,
-} from 'native-base'
-
-import { deckStructure, getDecks } from '../utils/api'
+import { AsyncStorage } from 'react-native'
+import { Text, Content, Card } from 'native-base'
+import { getDecks } from '../utils/api'
 import { styles } from './styles'
+import Deck from '../components/Deck'
 
 class DeckList extends Component {
   state = {
-    decks: {},
+    decks: null,
   }
+
   componentDidMount() {
-    getDecks()
-      .then(JSON.parse)
-      .then(decks => {
-        this.setState(() => ({ decks }))
-      })
+    getDecks().then(decks => decks && this.setState(() => ({ decks })))
   }
+
+  navigate = (path, title) => {
+    this.props.navigation.navigate(path, { title })
+  }
+
   render() {
-    const { navigation } = this.props
     const { decks } = this.state
     return (
       <Content style={styles.content}>
         <Text>Deck List</Text>
-        {Object.keys(decks).map(key => (
-          <Card key={key}>
-            <CardItem
-              button={true}
-              onPress={() =>
-                navigation.navigate('IndividualDeck', { deck: key })
-              }
-            >
-              <Body>
-                <Text style={{ alignSelf: 'center' }}>{key}</Text>
-              </Body>
-            </CardItem>
-          </Card>
-        ))}
+        {decks ? (
+          Object.entries(decks).map(([key, value]) => {
+            const questions = value.questions ? value.questions.length : 0
+            return (
+              <Card key={key}>
+                <Deck
+                  navigate={this.navigate}
+                  path="IndividualDeck"
+                  title={key}
+                  questions={questions}
+                />
+              </Card>
+            )
+          })
+        ) : (
+          <Text>No decks to display</Text>
+        )}
       </Content>
     )
   }
