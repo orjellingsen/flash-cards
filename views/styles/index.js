@@ -7,4 +7,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  content: {
+    padding: 20,
+  },
+  button: {
+    marginTop: 10,
+    marginBottom: 5,
+  },
 })
