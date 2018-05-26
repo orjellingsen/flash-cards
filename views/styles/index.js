@@ -14,4 +14,8 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
   },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })

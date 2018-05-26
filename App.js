@@ -44,7 +44,7 @@ const Tabs = createBottomTabNavigator(
         tabBarLabel: 'New Deck',
         tabBarIcon: ({ focused, tintColor }) => (
           <Ionicons
-            name={`ios-add${focused ? '' : '-outline'}`}
+            name={`ios-add-circle${focused ? '' : '-outline'}`}
             size={30}
             color={tintColor}
           />
