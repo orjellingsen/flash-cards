@@ -13,12 +13,25 @@ class IndividualDeck extends Component {
   render() {
     const { navigation } = this.props
     return (
-      <Content>
-        <Text>Individual Deck</Text>
-        <Button block onPress={() => navigation.navigate('NewQuestion')}>
+      <Content style={styles.content}>
+        <Button
+          style={styles.button}
+          block
+          light
+          onPress={() =>
+            navigation.navigate('NewQuestion', {
+              title: navigation.state.params.deck,
+            })
+          }
+        >
           <Text>Add Question</Text>
         </Button>
-        <Button block onPress={() => navigation.navigate('Quiz')}>
+        <Button
+          style={styles.button}
+          block
+          light
+          onPress={() => navigation.navigate('Quiz')}
+        >
           <Text>Start Quiz</Text>
         </Button>
       </Content>
