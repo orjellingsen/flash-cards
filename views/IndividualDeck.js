@@ -1,39 +1,60 @@
 import React, { Component } from 'react'
 import { styles } from './styles'
-import { Container, Button, Text, Content } from 'native-base'
+import {
+  Container,
+  Button,
+  Text,
+  Content,
+  Card,
+  CardItem,
+  Body,
+} from 'native-base'
+import { getDeck } from '../utils/api'
+import CardButton from '../components/CardButton'
+import DeckDetails from '../components/DeckDetails'
 
 class IndividualDeck extends Component {
   static navigationOptions = ({ navigation }) => {
-    const { deck } = navigation.state.params
+    const { title } = navigation.state.params
     return {
-      title: deck,
+      title,
     }
+  }
+
+  state = {
+    deck: null,
+  }
+
+  navigate = path => {
+    const { navigation } = this.props
+    navigation.navigate(path, {
+      title: navigation.state.params.title,
+    })
+  }
+
+  componentDidMount() {
+    const { title } = this.props.navigation.state.params
+    getDeck(title).then(deck => {
+      this.setState(() => ({ deck }))
+    })
   }
 
   render() {
     const { navigation } = this.props
+    const { deck } = this.state
     return (
       <Content style={styles.content}>
-        <Button
-          style={styles.button}
-          block
-          light
-          onPress={() =>
-            navigation.navigate('NewQuestion', {
-              title: navigation.state.params.deck,
-            })
-          }
-        >
-          <Text>Add Question</Text>
-        </Button>
-        <Button
-          style={styles.button}
-          block
-          light
-          onPress={() => navigation.navigate('Quiz')}
-        >
-          <Text>Start Quiz</Text>
-        </Button>
+        <Card>
+          {deck && (
+            <DeckDetails title={deck.title} questions={deck.questions.length} />
+          )}
+          <CardButton path="NewQuestion" navigate={this.navigate}>
+            Add Question
+          </CardButton>
+          <CardButton path={'Quiz'} navigate={this.navigate}>
+            Quiz
+          </CardButton>
+        </Card>
       </Content>
     )
   }
