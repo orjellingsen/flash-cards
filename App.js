@@ -7,8 +7,7 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { Container } from 'native-base'
-
-import { blue, gray, white, red } from './utils/colors'
+import { gray, white, red } from './utils/colors'
 import DeckList from './views/DeckList'
 import IndividualDeck from './views/IndividualDeck'
 import NewDeck from './views/NewDeck'

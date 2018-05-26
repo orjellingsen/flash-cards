@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import {
-  Container,
-  Content,
-  Text,
-  Form,
-  Item,
-  Input,
-  Label,
-  Button,
-  Icon,
-} from 'native-base'
+import { Content, Form, Item, Input, Label } from 'native-base'
 import { NavigationActions } from 'react-navigation'
 import { addCardToDeck } from '../utils/api'
 import { styles } from './styles'
+import SubmitButton from '../components/SubmitButton'
 
 class NewDeck extends Component {
   state = {
@@ -59,16 +50,9 @@ class NewDeck extends Component {
               onChangeText={value => this.onChange(value, 'answer')}
             />
           </Item>
-          <Button
-            style={styles.button}
-            iconLeft
-            block
-            light
-            onPress={this.onSubmit}
-          >
-            <Icon name="add" />
-            <Text>Add Question</Text>
-          </Button>
+          <SubmitButton icon="help" action={this.onSubmit}>
+            Add Question
+          </SubmitButton>
         </Form>
       </Content>
     )

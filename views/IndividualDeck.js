@@ -1,14 +1,6 @@
 import React, { Component } from 'react'
 import { styles } from './styles'
-import {
-  Container,
-  Button,
-  Text,
-  Content,
-  Card,
-  CardItem,
-  Body,
-} from 'native-base'
+import { Content, Card } from 'native-base'
 import { getDeck } from '../utils/api'
 import CardButton from '../components/CardButton'
 import DeckDetails from '../components/DeckDetails'
@@ -16,9 +8,7 @@ import DeckDetails from '../components/DeckDetails'
 class IndividualDeck extends Component {
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
-    return {
-      title,
-    }
+    return { title }
   }
 
   state = {
