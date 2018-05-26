@@ -2,7 +2,7 @@
 We'll use AsyncStorage to store our decks and flashcards. Redux is optional for this project.
 Using AsyncStorage you'll manage an object whose shape is similar to this:
 */
-const deckStructure = {
+export const deckStructure = {
   React: {
     title: 'React',
     questions: [
