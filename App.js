@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { Container } from 'native-base'
 
-import { blue, gray, white } from './utils/colors'
+import { blue, gray, white, red } from './utils/colors'
 import DeckList from './views/DeckList'
 import IndividualDeck from './views/IndividualDeck'
 import NewDeck from './views/NewDeck'
@@ -54,7 +54,7 @@ const Tabs = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      activeTintColor: blue,
+      activeTintColor: red,
       inactiveTintColor: gray,
     },
   }
@@ -72,7 +72,7 @@ const Stack = createStackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: blue,
+        backgroundColor: red,
       },
     },
   },
@@ -82,7 +82,7 @@ const Stack = createStackNavigator({
       title: 'New Question',
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: blue,
+        backgroundColor: red,
       },
     },
   },
@@ -92,15 +92,15 @@ const Stack = createStackNavigator({
       title: 'Quiz',
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: blue,
+        backgroundColor: red,
       },
     },
   },
 })
 
 export default () => (
-  <Fragment>
-    <FlashCardsStatusBar backgroundColor={blue} barStyle="light-content" />
+  <Container>
+    <FlashCardsStatusBar backgroundColor={red} barStyle="light-content" />
     <Stack />
-  </Fragment>
+  </Container>
 )
