@@ -23,30 +23,65 @@ import QuizHeader from '../components/QuizHeader'
   * the number of cards left in the quiz
   * Displays the percentage correct once the quiz is complete
 */
-
+const initialState = {
+  showAnswer: false,
+  questionCount: 1,
+  correct: 0,
+  incorrect: 0,
+  showScore: false,
+}
 class Quiz extends Component {
-  state = {
-    showAnswer: false,
-    answers: {},
-    question: 1,
-  }
+  state = initialState
 
   toggleCard = () => {
     this.setState(() => ({ showAnswer: !this.state.showAnswer }))
   }
 
+  nextQuestion = () => {
+    if (this.state.questionCount === this.props.deck.length) {
+      this.setState(() => ({ showScore: true }))
+    } else {
+      this.toggleCard()
+      this.setState(() => ({ questionCount: this.state.questionCount + 1 }))
+    }
+  }
+
+  registerAnswer = answer => {
+    this.setState(
+      () =>
+        answer === true
+          ? { correct: this.state.correct + 1 }
+          : { incorrect: this.state.incorrect + 1 }
+    )
+    this.nextQuestion()
+  }
+
+  reset = () => {
+    this.setState(() => initialState)
+  }
+
+  toHome = title => {
+    const { navigation } = this.props
+    navigation.navigate('IndividualDeck', {
+      title,
+    })
+  }
+
   render() {
-    const { showAnswer, question } = this.state
+    const { showAnswer, questionCount, showScore } = this.state
     const { deck } = this.props
-    const card = deck.questions[0]
+    const card = deck.questions[questionCount - 1]
     const questionTotal = deck.questions.length
     return (
       <Content style={styles.content}>
-        {card && (
+        {card && !showScore ? (
           <Card style={{ padding: 20 }}>
             {showAnswer ? (
               <Fragment>
-                <QuizHeader question={question} questionTotal={questionTotal}>
+                <QuizHeader
+                  question={questionCount}
+                  questionTotal={questionTotal}
+                >
                   Answer
                 </QuizHeader>
                 <QuizContent>{card.answer}</QuizContent>
@@ -56,21 +91,26 @@ class Quiz extends Component {
                 <CardButton
                   success
                   icon="checkmark-circle"
-                  action={this.registerAnswer(true)}
+                  actionValue={true}
+                  action={this.registerAnswer}
                 >
-                  Correct
+                  Correct {this.state.correct}
                 </CardButton>
                 <CardButton
                   danger
                   icon="close-circle"
-                  action={this.registerAnswer(false)}
+                  actionValue={false}
+                  action={this.registerAnswer}
                 >
-                  Incorrect
+                  Incorrect {this.state.incorrect}
                 </CardButton>
               </Fragment>
             ) : (
               <Fragment>
-                <QuizHeader question={question} questionTotal={questionTotal}>
+                <QuizHeader
+                  question={questionCount}
+                  questionTotal={questionTotal}
+                >
                   Question
                 </QuizHeader>
                 <QuizContent>{card.question}</QuizContent>
@@ -83,6 +123,31 @@ class Quiz extends Component {
                 </CardButton>
               </Fragment>
             )}
+          </Card>
+        ) : (
+          <Card>
+            <CardItem>
+              <Body>
+                <Text>Score:</Text>
+                <Text>Correct: {this.state.correct}</Text>
+                <Text>Incorrect: {this.state.incorrect}</Text>
+                <CardButton
+                  danger
+                  icon="information-circle"
+                  action={this.reset}
+                >
+                  Reset Quiz
+                </CardButton>
+                <CardButton
+                  light
+                  icon="information-circle"
+                  action={this.toHome}
+                  actionValue={deck.title}
+                >
+                  Back to deck
+                </CardButton>
+              </Body>
+            </CardItem>
           </Card>
         )}
       </Content>

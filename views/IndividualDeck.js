@@ -39,7 +39,7 @@ class IndividualDeck extends Component {
           <CardButton
             disabled={deck.questions.length === 0}
             info
-            path="Quiz"
+            actionValue="Quiz"
             action={this.navigate}
           >
             Start Quiz
@@ -47,7 +47,7 @@ class IndividualDeck extends Component {
           <CardButton
             icon="add-circle"
             light
-            path="NewQuestion"
+            actionValue="NewQuestion"
             action={this.navigate}
           >
             Add Card
