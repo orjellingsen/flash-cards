@@ -40,7 +40,7 @@ class NewDeck extends Component {
             <Label>Title</Label>
             <Input value={title} onChangeText={title => this.onChange(title)} />
           </Item>
-          <SubmitButton icon="add-circle" action={this.onSubmit}>
+          <SubmitButton info icon="add-circle" action={this.onSubmit}>
             Create
           </SubmitButton>
         </Form>

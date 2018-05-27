@@ -32,15 +32,24 @@ class IndividualDeck extends Component {
 
   render() {
     const { navigation, deck } = this.props
-    console.log(typeof deck)
     return (
       <Content style={styles.content}>
         <Card>
           <DeckDetails deck={deck} />
-          <CardButton primary path={'Quiz'} navigate={this.navigate}>
+          <CardButton
+            disabled={deck.questions.length === 0}
+            info
+            path="Quiz"
+            action={this.navigate}
+          >
             Start Quiz
           </CardButton>
-          <CardButton path="NewQuestion" navigate={this.navigate}>
+          <CardButton
+            icon="add-circle"
+            light
+            path="NewQuestion"
+            action={this.navigate}
+          >
             Add Card
           </CardButton>
         </Card>

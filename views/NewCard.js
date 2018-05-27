@@ -53,7 +53,7 @@ class NewCard extends Component {
               onChangeText={value => this.onChange(value, 'answer')}
             />
           </Item>
-          <SubmitButton icon="add-circle" action={this.onSubmit}>
+          <SubmitButton info icon="add-circle" action={this.onSubmit}>
             Add Card
           </SubmitButton>
         </Form>

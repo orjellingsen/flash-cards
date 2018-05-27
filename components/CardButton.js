@@ -1,16 +1,17 @@
 import React from 'react'
-import { CardItem, Body, Button, Text } from 'native-base'
+import { CardItem, Body, Button, Text, Icon } from 'native-base'
 
-export default function CardButton({ path, navigate, primary, children }) {
+export default function CardButton({ path, action, children, icon, ...rest }) {
   return (
     <CardItem>
       <Body>
         <Button
-          primary={!!primary}
-          light={!primary}
-          full
-          onPress={() => navigate(path)}
+          block
+          iconLeft
+          onPress={() => action && action(path && path)}
+          {...rest}
         >
+          {icon && <Icon name={icon} />}
           <Text>{children}</Text>
         </Button>
       </Body>
