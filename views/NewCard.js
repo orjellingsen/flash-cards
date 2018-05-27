@@ -16,9 +16,7 @@ class NewCard extends Component {
 
   onSubmit = () => {
     const { title } = this.props.navigation.state.params
-    addCardToDeck(title, { ...this.state }).then(card =>
-      this.props.dispatch(addCard(card, title))
-    )
+    addCardToDeck(title, { ...this.state }).then(card => this.props.dispatch(addCard(card, title)))
     this.toHome(title)
   }
 
@@ -41,17 +39,11 @@ class NewCard extends Component {
         <Form>
           <Item floatingLabel>
             <Label>Question</Label>
-            <Input
-              value={question}
-              onChangeText={value => this.onChange(value, 'question')}
-            />
+            <Input value={question} onChangeText={value => this.onChange(value, 'question')} />
           </Item>
           <Item floatingLabel>
             <Label>Answer</Label>
-            <Input
-              value={answer}
-              onChangeText={value => this.onChange(value, 'answer')}
-            />
+            <Input value={answer} onChangeText={value => this.onChange(value, 'answer')} />
           </Item>
           <SubmitButton info icon="add-circle" action={this.onSubmit}>
             Add Card

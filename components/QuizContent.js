@@ -6,9 +6,7 @@ export default function QuizContent({ children }) {
   return (
     <CardItem>
       <Body>
-        <Text style={{ marginTop: 20, marginBottom: 20, fontSize: 18 }}>
-          {children}
-        </Text>
+        <Text style={{ marginTop: 20, marginBottom: 20, fontSize: 18 }}>{children}</Text>
       </Body>
     </CardItem>
   )

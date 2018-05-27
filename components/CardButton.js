@@ -1,13 +1,7 @@
 import React from 'react'
 import { CardItem, Body, Button, Text, Icon } from 'native-base'
 
-export default function CardButton({
-  actionValue,
-  action,
-  children,
-  icon,
-  ...rest
-}) {
+export default function CardButton({ actionValue, action, children, icon, ...rest }) {
   return (
     <CardItem>
       <Body>

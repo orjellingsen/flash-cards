@@ -2,10 +2,7 @@ import React, { Fragment } from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { StatusBar, View } from 'react-native'
-import {
-  createBottomTabNavigator,
-  createStackNavigator,
-} from 'react-navigation'
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { Container } from 'native-base'
@@ -32,11 +29,7 @@ const Tabs = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: 'All Decks',
         tabBarIcon: ({ focused, tintColor }) => (
-          <Ionicons
-            name={`ios-albums${focused ? '' : '-outline'}`}
-            size={30}
-            color={tintColor}
-          />
+          <Ionicons name={`ios-albums${focused ? '' : '-outline'}`} size={30} color={tintColor} />
         ),
       },
     },
@@ -103,10 +96,7 @@ const Stack = createStackNavigator({
 export default () => (
   <Provider store={createStore(reducers)}>
     <Container>
-      <FlashCardsStatusBar
-        backgroundColor={primaryColor}
-        barStyle="light-content"
-      />
+      <FlashCardsStatusBar backgroundColor={primaryColor} barStyle="light-content" />
       <Stack />
     </Container>
   </Provider>
