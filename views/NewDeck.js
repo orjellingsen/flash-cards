@@ -7,20 +7,27 @@ import SubmitButton from '../components/SubmitButton'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
 
+const initialState = {
+  title: '',
+}
+
 class NewDeck extends Component {
-  state = {
-    title: '',
-  }
+  state = initialState
 
   onSubmit = () => {
     const { title } = this.state
     saveDeckTitle(title)
       .then(deck => this.props.dispatch(addDeck(deck)))
       .then(() => this.redirect(title))
+    this.resetForm()
   }
 
   onChange = title => {
     this.setState(() => ({ title }))
+  }
+
+  resetForm = () => {
+    this.setState(() => initialState)
   }
 
   redirect = title => {
