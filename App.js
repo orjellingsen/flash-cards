@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import { StatusBar, View } from 'react-native'
 import {
   createBottomTabNavigator,
@@ -7,6 +9,7 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { Container } from 'native-base'
+import reducers from './reducers'
 import { gray, white, primaryColor } from './utils/colors'
 import DeckList from './views/DeckList'
 import IndividualDeck from './views/IndividualDeck'
@@ -98,11 +101,13 @@ const Stack = createStackNavigator({
 })
 
 export default () => (
-  <Container>
-    <FlashCardsStatusBar
-      backgroundColor={primaryColor}
-      barStyle="light-content"
-    />
-    <Stack />
-  </Container>
+  <Provider store={createStore(reducers)}>
+    <Container>
+      <FlashCardsStatusBar
+        backgroundColor={primaryColor}
+        barStyle="light-content"
+      />
+      <Stack />
+    </Container>
+  </Provider>
 )
