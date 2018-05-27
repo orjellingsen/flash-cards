@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   content: {
-    padding: 20,
+    paddingTop: 20,
+    paddingBottom: 50,
   },
   button: {
     marginTop: 10,

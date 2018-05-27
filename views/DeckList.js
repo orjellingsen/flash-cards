@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { AsyncStorage } from 'react-native'
-import { Text, Content, Card } from 'native-base'
-import { getDecks } from '../utils/api'
+import { Text, Content, Card, SwipeRow, Button, Icon } from 'native-base'
+import { getDecks, removeDeck } from '../utils/api'
 import { styles } from './styles'
 import Deck from '../components/Deck'
-import { receiveDecks } from '../actions'
+import { receiveDecks, deleteDeck } from '../actions'
 import { connect } from 'react-redux'
 
 class DeckList extends Component {
@@ -20,6 +20,10 @@ class DeckList extends Component {
     this.props.navigation.navigate(path, { title })
   }
 
+  removeDeck = title => {
+    removeDeck(title).then(_ => this.props.dispatch(deleteDeck(title)))
+  }
+
   render() {
     const { decks } = this.props
     return (
@@ -29,11 +33,21 @@ class DeckList extends Component {
           Object.entries(decks).map(([title, { questions = [] }]) => {
             return (
               <Card key={title}>
-                <Deck
-                  navigate={this.navigate}
-                  path="IndividualDeck"
-                  title={title}
-                  questions={questions.length}
+                <SwipeRow
+                  rightOpenValue={-75}
+                  right={
+                    <Button danger onPress={() => this.removeDeck(title)}>
+                      <Icon name="trash" />
+                    </Button>
+                  }
+                  body={
+                    <Deck
+                      navigate={this.navigate}
+                      path="IndividualDeck"
+                      title={title}
+                      questions={questions.length}
+                    />
+                  }
                 />
               </Card>
             )
