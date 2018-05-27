@@ -32,27 +32,25 @@ class IndividualDeck extends Component {
 
   render() {
     const { navigation, deck } = this.props
+    const questionsExist = deck.questions.length !== 0
     return (
       <Content style={styles.content}>
-        <Card>
-          <DeckDetails deck={deck} />
-          <CardButton
-            disabled={deck.questions.length === 0}
-            info
-            actionValue="Quiz"
-            action={this.navigate}
-          >
-            Start Quiz
-          </CardButton>
-          <CardButton
-            icon="add-circle"
-            light
-            actionValue="NewQuestion"
-            action={this.navigate}
-          >
-            Add Card
-          </CardButton>
-        </Card>
+        {deck && (
+          <Card>
+            <DeckDetails deck={deck} />
+            <CardButton
+              disabled={!questionsExist}
+              info={questionsExist}
+              actionValue="Quiz"
+              action={this.navigate}
+            >
+              Start Quiz
+            </CardButton>
+            <CardButton icon="add-circle" light actionValue="NewQuestion" action={this.navigate}>
+              Add Card
+            </CardButton>
+          </Card>
+        )}
       </Content>
     )
   }

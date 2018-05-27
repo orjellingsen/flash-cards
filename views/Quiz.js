@@ -1,48 +1,47 @@
 import React, { Component, Fragment } from 'react'
-import { styles } from './styles'
 import { connect } from 'react-redux'
-import {
-  Content,
-  Card,
-  Body,
-  Button,
-  Text,
-  CardItem,
-  Left,
-  Right,
-} from 'native-base'
+import { Content, Card, Body, Button, Text, CardItem, Left, Right } from 'native-base'
+import { calcPercent } from '../utils/helpers'
+import { styles } from './styles'
 import CardButton from '../components/CardButton'
 import QuizContent from '../components/QuizContent'
 import QuizHeader from '../components/QuizHeader'
-/*
-* Quiz View
-  * displays a card question
-  * an option to view the answer (flips the card)
-  * a "Correct" button
-  * an "Incorrect" button
-  * the number of cards left in the quiz
-  * Displays the percentage correct once the quiz is complete
-*/
+
 const initialState = {
   showAnswer: false,
-  questionCount: 1,
+  showScore: false,
+  cardNumber: 0,
+  card: null,
   correct: 0,
   incorrect: 0,
-  showScore: false,
 }
 class Quiz extends Component {
   state = initialState
+
+  static getDerivedStateFromProps({ deck }, { card, cardNumber }) {
+    if (card === null) {
+      return { card: deck.questions[cardNumber] }
+    }
+    return null
+  }
 
   toggleCard = () => {
     this.setState(() => ({ showAnswer: !this.state.showAnswer }))
   }
 
   nextQuestion = () => {
-    if (this.state.questionCount === this.props.deck.length) {
+    const { cardNumber } = this.state
+    const { deck } = this.props
+    const nextCardNumber = cardNumber + 1
+
+    if (nextCardNumber === deck.length) {
       this.setState(() => ({ showScore: true }))
     } else {
       this.toggleCard()
-      this.setState(() => ({ questionCount: this.state.questionCount + 1 }))
+      this.setState(() => ({
+        cardNumber: nextCardNumber,
+        card: deck.questions[nextCardNumber],
+      }))
     }
   }
 
@@ -57,10 +56,13 @@ class Quiz extends Component {
   }
 
   reset = () => {
-    this.setState(() => initialState)
+    this.setState(() => ({
+      ...initialState,
+      card: this.props.deck.questions[0],
+    }))
   }
 
-  toHome = title => {
+  redirect = title => {
     const { navigation } = this.props
     navigation.navigate('IndividualDeck', {
       title,
@@ -68,20 +70,17 @@ class Quiz extends Component {
   }
 
   render() {
-    const { showAnswer, questionCount, showScore } = this.state
+    const { card, cardNumber, showAnswer, showScore, correct } = this.state
     const { deck } = this.props
-    const card = deck.questions[questionCount - 1]
-    const questionTotal = deck.questions.length
+    const totalCards = deck.questions.length
+
     return (
       <Content style={styles.content}>
         {card && !showScore ? (
           <Card style={{ padding: 20 }}>
             {showAnswer ? (
               <Fragment>
-                <QuizHeader
-                  question={questionCount}
-                  questionTotal={questionTotal}
-                >
+                <QuizHeader question={cardNumber} questionTotal={totalCards}>
                   Answer
                 </QuizHeader>
                 <QuizContent>{card.answer}</QuizContent>
@@ -94,7 +93,7 @@ class Quiz extends Component {
                   actionValue={true}
                   action={this.registerAnswer}
                 >
-                  Correct {this.state.correct}
+                  Correct
                 </CardButton>
                 <CardButton
                   danger
@@ -102,23 +101,16 @@ class Quiz extends Component {
                   actionValue={false}
                   action={this.registerAnswer}
                 >
-                  Incorrect {this.state.incorrect}
+                  Incorrect
                 </CardButton>
               </Fragment>
             ) : (
               <Fragment>
-                <QuizHeader
-                  question={questionCount}
-                  questionTotal={questionTotal}
-                >
+                <QuizHeader question={cardNumber} questionTotal={totalCards}>
                   Question
                 </QuizHeader>
                 <QuizContent>{card.question}</QuizContent>
-                <CardButton
-                  light
-                  icon="information-circle"
-                  action={this.toggleCard}
-                >
+                <CardButton light icon="information-circle" action={this.toggleCard}>
                   Show Answer
                 </CardButton>
               </Fragment>
@@ -127,27 +119,22 @@ class Quiz extends Component {
         ) : (
           <Card>
             <CardItem>
-              <Body>
-                <Text>Score:</Text>
-                <Text>Correct: {this.state.correct}</Text>
-                <Text>Incorrect: {this.state.incorrect}</Text>
-                <CardButton
-                  danger
-                  icon="information-circle"
-                  action={this.reset}
-                >
-                  Reset Quiz
-                </CardButton>
-                <CardButton
-                  light
-                  icon="information-circle"
-                  action={this.toHome}
-                  actionValue={deck.title}
-                >
-                  Back to deck
-                </CardButton>
+              <Body style={{ alignItems: 'center' }}>
+                <Text>Score</Text>
+                <Text style={{ fontSize: 35 }}>{calcPercent(correct, totalCards)}%</Text>
               </Body>
             </CardItem>
+            <CardButton light icon="information-circle" action={this.reset}>
+              Try again
+            </CardButton>
+            <CardButton
+              light
+              icon="information-circle"
+              action={this.redirect}
+              actionValue={deck.title}
+            >
+              Back to deck
+            </CardButton>
           </Card>
         )}
       </Content>

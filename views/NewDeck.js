@@ -14,20 +14,19 @@ class NewDeck extends Component {
 
   onSubmit = () => {
     const { title } = this.state
-    saveDeckTitle(title).then(deck => this.props.dispatch(addDeck(deck)))
-    this.toHome()
+    saveDeckTitle(title)
+      .then(deck => this.props.dispatch(addDeck(deck)))
+      .then(() => this.redirect(title))
   }
 
   onChange = title => {
     this.setState(() => ({ title }))
   }
 
-  toHome = () => {
-    this.props.navigation.dispatch(
-      NavigationActions.back({
-        key: 'NewDeck',
-      })
-    )
+  redirect = title => {
+    this.props.navigation.navigate('IndividualDeck', {
+      title,
+    })
   }
 
   render() {
