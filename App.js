@@ -14,7 +14,7 @@ import { gray, white, primaryColor } from './utils/colors'
 import DeckList from './views/DeckList'
 import IndividualDeck from './views/IndividualDeck'
 import NewDeck from './views/NewDeck'
-import NewQuestion from './views/NewQuestion'
+import NewCard from './views/NewCard'
 import Quiz from './views/Quiz'
 
 const FlashCardsStatusBar = ({ backgroundColor, ...props }) => {
@@ -79,9 +79,9 @@ const Stack = createStackNavigator({
     },
   },
   NewQuestion: {
-    screen: NewQuestion,
+    screen: NewCard,
     navigationOptions: {
-      title: 'New Question',
+      title: 'New Card',
       headerTintColor: white,
       headerStyle: {
         backgroundColor: primaryColor,

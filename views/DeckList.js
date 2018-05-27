@@ -4,6 +4,8 @@ import { Text, Content, Card } from 'native-base'
 import { getDecks } from '../utils/api'
 import { styles } from './styles'
 import Deck from '../components/Deck'
+import { receiveDecks } from '../actions'
+import { connect } from 'react-redux'
 
 class DeckList extends Component {
   state = {
@@ -11,7 +13,7 @@ class DeckList extends Component {
   }
 
   componentDidMount() {
-    getDecks().then(decks => decks && this.setState(() => ({ decks })))
+    getDecks().then(decks => this.props.dispatch(receiveDecks(decks)))
   }
 
   navigate = (path, title) => {
@@ -19,12 +21,12 @@ class DeckList extends Component {
   }
 
   render() {
-    const { decks } = this.state
+    const { decks } = this.props
     return (
       <Content style={styles.content}>
         <Text style={styles.header}>All Decks:</Text>
         {decks ? (
-          Object.entries(decks).map(([title, { questions }]) => {
+          Object.entries(decks).map(([title, { questions = [] }]) => {
             return (
               <Card key={title}>
                 <Deck
@@ -44,4 +46,10 @@ class DeckList extends Component {
   }
 }
 
-export default DeckList
+function mapStateToProps(decks) {
+  return {
+    decks,
+  }
+}
+
+export default connect(mapStateToProps)(DeckList)

@@ -4,6 +4,7 @@ import { Content, Card } from 'native-base'
 import { getDeck } from '../utils/api'
 import CardButton from '../components/CardButton'
 import DeckDetails from '../components/DeckDetails'
+import { connect } from 'react-redux'
 
 class IndividualDeck extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -30,19 +31,17 @@ class IndividualDeck extends Component {
   }
 
   render() {
-    const { navigation } = this.props
-    const { deck } = this.state
+    const { navigation, deck } = this.props
+    console.log(typeof deck)
     return (
       <Content style={styles.content}>
         <Card>
-          {deck && (
-            <DeckDetails title={deck.title} questions={deck.questions.length} />
-          )}
+          <DeckDetails deck={deck} />
           <CardButton primary path={'Quiz'} navigate={this.navigate}>
             Start Quiz
           </CardButton>
           <CardButton path="NewQuestion" navigate={this.navigate}>
-            Add Question
+            Add Card
           </CardButton>
         </Card>
       </Content>
@@ -50,4 +49,11 @@ class IndividualDeck extends Component {
   }
 }
 
-export default IndividualDeck
+function mapStateToProps(decks, { navigation }) {
+  const { title } = navigation.state.params
+  return {
+    deck: decks[title],
+  }
+}
+
+export default connect(mapStateToProps)(IndividualDeck)

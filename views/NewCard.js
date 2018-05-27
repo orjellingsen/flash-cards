@@ -5,8 +5,10 @@ import { NavigationActions } from 'react-navigation'
 import { addCardToDeck } from '../utils/api'
 import { styles } from './styles'
 import SubmitButton from '../components/SubmitButton'
+import { connect } from 'react-redux'
+import { addCard } from '../actions'
 
-class NewDeck extends Component {
+class NewCard extends Component {
   state = {
     question: '',
     answer: '',
@@ -14,20 +16,21 @@ class NewDeck extends Component {
 
   onSubmit = () => {
     const { title } = this.props.navigation.state.params
-    addCardToDeck(title, { ...this.state })
-    this.toHome()
+    addCardToDeck(title, { ...this.state }).then(card =>
+      this.props.dispatch(addCard(card, title))
+    )
+    this.toHome(title)
   }
 
   onChange = (value, key) => {
     this.setState(() => ({ [key]: value }))
   }
 
-  toHome = () => {
-    this.props.navigation.dispatch(
-      NavigationActions.back({
-        key: 'NewQuestion',
-      })
-    )
+  toHome = title => {
+    const { navigation } = this.props
+    navigation.navigate('IndividualDeck', {
+      title,
+    })
   }
 
   render() {
@@ -50,8 +53,8 @@ class NewDeck extends Component {
               onChangeText={value => this.onChange(value, 'answer')}
             />
           </Item>
-          <SubmitButton icon="help" action={this.onSubmit}>
-            Add Question
+          <SubmitButton icon="add-circle" action={this.onSubmit}>
+            Add Card
           </SubmitButton>
         </Form>
       </Content>
@@ -59,4 +62,4 @@ class NewDeck extends Component {
   }
 }
 
-export default NewDeck
+export default connect()(NewCard)

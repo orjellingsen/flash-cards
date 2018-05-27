@@ -4,6 +4,8 @@ import { NavigationActions } from 'react-navigation'
 import { saveDeckTitle } from '../utils/api'
 import { styles } from './styles'
 import SubmitButton from '../components/SubmitButton'
+import { addDeck } from '../actions'
+import { connect } from 'react-redux'
 
 class NewDeck extends Component {
   state = {
@@ -12,7 +14,7 @@ class NewDeck extends Component {
 
   onSubmit = () => {
     const { title } = this.state
-    saveDeckTitle(title)
+    saveDeckTitle(title).then(deck => this.props.dispatch(addDeck(deck)))
     this.toHome()
   }
 
@@ -38,7 +40,7 @@ class NewDeck extends Component {
             <Label>Title</Label>
             <Input value={title} onChangeText={title => this.onChange(title)} />
           </Item>
-          <SubmitButton icon="add" action={this.onSubmit}>
+          <SubmitButton icon="add-circle" action={this.onSubmit}>
             Create
           </SubmitButton>
         </Form>
@@ -47,4 +49,4 @@ class NewDeck extends Component {
   }
 }
 
-export default NewDeck
+export default connect()(NewDeck)
