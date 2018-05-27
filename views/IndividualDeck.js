@@ -38,11 +38,11 @@ class IndividualDeck extends Component {
           {deck && (
             <DeckDetails title={deck.title} questions={deck.questions.length} />
           )}
+          <CardButton primary path={'Quiz'} navigate={this.navigate}>
+            Start Quiz
+          </CardButton>
           <CardButton path="NewQuestion" navigate={this.navigate}>
             Add Question
-          </CardButton>
-          <CardButton path={'Quiz'} navigate={this.navigate}>
-            Quiz
           </CardButton>
         </Card>
       </Content>

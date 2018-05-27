@@ -23,4 +23,7 @@ export const styles = StyleSheet.create({
     fontSize: 22,
     marginBottom: 10,
   },
+  largeText: {
+    fontSize: 35,
+  },
 })

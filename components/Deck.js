@@ -1,5 +1,6 @@
 import React from 'react'
 import { CardItem, Left, Right, Icon, Text } from 'native-base'
+import { cardText } from '../utils/helpers'
 
 export default function Deck({ navigate, path, title, questions }) {
   return (
@@ -9,7 +10,9 @@ export default function Deck({ navigate, path, title, questions }) {
         <Text style={{ alignSelf: 'center' }}>{title}</Text>
       </Left>
       <Right>
-        <Text>{questions}</Text>
+        <Text>
+          {questions} {cardText(questions)}
+        </Text>
       </Right>
     </CardItem>
   )

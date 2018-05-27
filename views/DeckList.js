@@ -24,15 +24,14 @@ class DeckList extends Component {
       <Content style={styles.content}>
         <Text style={styles.header}>All Decks:</Text>
         {decks ? (
-          Object.entries(decks).map(([key, value]) => {
-            const questions = value.questions ? value.questions.length : 0
+          Object.entries(decks).map(([title, { questions }]) => {
             return (
-              <Card key={key}>
+              <Card key={title}>
                 <Deck
                   navigate={this.navigate}
                   path="IndividualDeck"
-                  title={key}
-                  questions={questions}
+                  title={title}
+                  questions={questions.length}
                 />
               </Card>
             )

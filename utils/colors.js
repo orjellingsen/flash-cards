@@ -1,4 +1,5 @@
-export const blue = 'cornflowerblue'
+export const blue = 'steelblue'
 export const gray = 'gray'
 export const white = 'white'
-export const red = 'tomato'
+export const red = 'steelblue'
+export const primaryColor = 'steelblue'
