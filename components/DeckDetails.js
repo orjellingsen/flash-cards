@@ -7,7 +7,7 @@ const DeckInfo = ({ deck: { title, questions } }) => {
   const cardAmount = questions.length
   return (
     <CardItem header>
-      <Body padder style={{ alignItems: 'center' }}>
+      <Body padder style={styles.center}>
         <H1>{title}</H1>
         <Text style={styles.largeText}>{cardAmount}</Text>
         <Text style={styles.smallText}>{cardText(cardAmount)}</Text>

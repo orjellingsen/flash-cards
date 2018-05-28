@@ -55,6 +55,13 @@ const Tabs = createBottomTabNavigator(
   }
 )
 
+const defaultStackOptions = {
+  headerTintColor: white,
+  headerStyle: {
+    backgroundColor: primaryColor,
+  },
+}
+
 const Stack = createStackNavigator({
   Home: {
     screen: Tabs,
@@ -64,31 +71,20 @@ const Stack = createStackNavigator({
   },
   IndividualDeck: {
     screen: IndividualDeck,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primaryColor,
-      },
-    },
+    navigationOptions: defaultStackOptions,
   },
   NewQuestion: {
     screen: NewCard,
     navigationOptions: {
       title: 'New Card',
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primaryColor,
-      },
+      ...defaultStackOptions,
     },
   },
   Quiz: {
     screen: Quiz,
     navigationOptions: {
       title: 'Quiz',
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primaryColor,
-      },
+      ...defaultStackOptions,
     },
   },
 })

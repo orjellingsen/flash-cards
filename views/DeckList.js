@@ -26,7 +26,7 @@ class DeckList extends Component {
       <Content padder>
         <H2>All Decks:</H2>
         {decks ? (
-          Object.entries(decks).map(([title, { questions = [] }]) => {
+          Object.entries(decks).map(([title, { questions }]) => {
             return (
               <Card key={title}>
                 <SwipeRow
