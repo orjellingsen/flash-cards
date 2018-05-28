@@ -1,7 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Content, Card, Body, Button, Text, CardItem, Left, Right } from 'native-base'
-import { calcPercent, redirect } from '../utils/helpers'
+import {
+  calcPercent,
+  redirect,
+  clearLocalNotifications,
+  setLocalNotification,
+} from '../utils/helpers'
 import CardButton from '../components/CardButton'
 import QuizContent from '../components/QuizContent'
 import QuizHeader from '../components/QuizHeader'
@@ -35,6 +40,7 @@ class Quiz extends Component {
 
     if (nextCardNumber === deck.length) {
       this.setState(() => ({ showScore: true }))
+      clearLocalNotifications().then(setLocalNotification)
     } else {
       this.toggleCard()
       this.setState(() => ({

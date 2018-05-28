@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Component } from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { StatusBar, View } from 'react-native'
@@ -8,8 +8,9 @@ import { Constants } from 'expo'
 import { Container } from 'native-base'
 import reducers from './reducers'
 import { gray, white, primaryColor } from './utils/colors'
-import DeckList from './views/DeckList'
+import { setLocalNotification } from './utils/helpers'
 import IndividualDeck from './views/IndividualDeck'
+import DeckList from './views/DeckList'
 import NewDeck from './views/NewDeck'
 import NewCard from './views/NewCard'
 import Quiz from './views/Quiz'
@@ -89,11 +90,19 @@ const Stack = createStackNavigator({
   },
 })
 
-export default () => (
-  <Provider store={createStore(reducers)}>
-    <Container>
-      <FlashCardsStatusBar backgroundColor={primaryColor} barStyle="light-content" />
-      <Stack />
-    </Container>
-  </Provider>
-)
+export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
+  render() {
+    return (
+      <Provider store={createStore(reducers)}>
+        <Container>
+          <FlashCardsStatusBar backgroundColor={primaryColor} barStyle="light-content" />
+          <Stack />
+        </Container>
+      </Provider>
+    )
+  }
+}

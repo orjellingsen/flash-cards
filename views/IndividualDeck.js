@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Content, Card } from 'native-base'
+import { Content, Card, Text } from 'native-base'
 import CardButton from '../components/CardButton'
 import DeckDetails from '../components/DeckDetails'
 import { connect } from 'react-redux'
@@ -32,6 +32,9 @@ class IndividualDeck extends Component {
             >
               Start Quiz
             </CardButton>
+            {!questionsExist && (
+              <Text style={{ textAlign: 'center' }}>Please add a new card to get started.</Text>
+            )}
             <CardButton icon="add-circle" light actionValue="NewQuestion" action={this.navigate}>
               Add Card
             </CardButton>
