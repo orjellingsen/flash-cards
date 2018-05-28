@@ -1,8 +1,36 @@
 import { AsyncStorage } from 'react-native'
-const DECK_KEY = 'FlashCards:decks'
+const DECK_KEY = 'FlashCards:decks4'
+
+const initialData = {
+  React: {
+    title: 'React',
+    questions: [
+      {
+        question: 'What is React?',
+        answer: 'A library for managing user interfaces',
+      },
+      {
+        question: 'Where do you make Ajax requests in React?',
+        answer: 'The componentDidMount lifecycle event',
+      },
+    ],
+  },
+  JavaScript: {
+    title: 'JavaScript',
+    questions: [
+      {
+        question: 'What is a closure?',
+        answer:
+          'The combination of a function and the lexical environment within which that function was declared.',
+      },
+    ],
+  },
+}
+
+export function initializeApp() {}
 
 export function getDecks() {
-  return AsyncStorage.getItem(DECK_KEY).then(data => JSON.parse(data))
+  return AsyncStorage.getItem(DECK_KEY).then(data => (data ? JSON.parse(data) : initialData))
 }
 
 /* Since I am using redux, I have opted not to use this function. I found it to be a better soulution to

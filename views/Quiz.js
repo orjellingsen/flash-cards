@@ -5,6 +5,7 @@ import { calcPercent, redirect } from '../utils/helpers'
 import CardButton from '../components/CardButton'
 import QuizContent from '../components/QuizContent'
 import QuizHeader from '../components/QuizHeader'
+import Quote from '../components/Quote'
 
 const initialState = {
   showAnswer: false,
@@ -109,6 +110,7 @@ class Quiz extends Component {
               <Body style={{ alignItems: 'center' }}>
                 <Text>Score</Text>
                 <Text style={{ fontSize: 35 }}>{calcPercent(correct, totalCards)}%</Text>
+                <Quote />
               </Body>
             </CardItem>
             <CardButton light icon="refresh" action={this.resetQuiz}>
