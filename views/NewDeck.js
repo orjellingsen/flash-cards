@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Content, Text, Form, Item, Input, Label } from 'native-base'
+import { Content, Form, Item, Input, Label, H2 } from 'native-base'
 import { NavigationActions } from 'react-navigation'
 import { saveDeckTitle } from '../utils/api'
-import { styles } from './styles'
 import SubmitButton from '../components/SubmitButton'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
@@ -39,8 +38,8 @@ class NewDeck extends Component {
   render() {
     const { title } = this.state
     return (
-      <Content style={styles.content}>
-        <Text style={styles.header}>Create a new deck:</Text>
+      <Content padder>
+        <H2>Create a new deck:</H2>
         <Form>
           <Item floatingLabel>
             <Label>Title</Label>

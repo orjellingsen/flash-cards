@@ -22,6 +22,11 @@ class IndividualDeck extends Component {
       title: navigation.state.params.title,
     })
   }
+  toHome = title => {
+    this.props.navigation.navigate('IndividualDeck', {
+      title,
+    })
+  }
 
   componentDidMount() {
     const { title } = this.props.navigation.state.params
@@ -34,7 +39,7 @@ class IndividualDeck extends Component {
     const { navigation, deck } = this.props
     const questionsExist = deck.questions.length !== 0
     return (
-      <Content style={styles.content}>
+      <Content padder>
         {deck && (
           <Card>
             <DeckDetails deck={deck} />

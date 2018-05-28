@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { AsyncStorage } from 'react-native'
-import { Text, Content, Card, SwipeRow, Button, Icon } from 'native-base'
+import { Text, Content, Card, SwipeRow, Button, Icon, H2 } from 'native-base'
 import { getDecks, removeDeck } from '../utils/api'
-import { styles } from './styles'
 import Deck from '../components/Deck'
 import { receiveDecks, deleteDeck } from '../actions'
 import { connect } from 'react-redux'
@@ -27,8 +26,8 @@ class DeckList extends Component {
   render() {
     const { decks } = this.props
     return (
-      <Content style={styles.content}>
-        <Text style={styles.header}>All Decks:</Text>
+      <Content padder>
+        <H2>All Decks:</H2>
         {decks ? (
           Object.entries(decks).map(([title, { questions = [] }]) => {
             return (

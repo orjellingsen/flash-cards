@@ -35,7 +35,7 @@ class NewCard extends Component {
     const { question, answer } = this.state
     const { title } = this.props.navigation.state.params
     return (
-      <Content style={styles.content}>
+      <Content padder>
         <Form>
           <Item floatingLabel>
             <Label>Question</Label>

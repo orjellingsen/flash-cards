@@ -75,9 +75,9 @@ class Quiz extends Component {
     const totalCards = deck.questions.length
 
     return (
-      <Content style={styles.content}>
+      <Content padder>
         {card && !showScore ? (
-          <Card style={{ padding: 20 }}>
+          <Card padder>
             {showAnswer ? (
               <Fragment>
                 <QuizHeader question={cardNumber} questionTotal={totalCards}>
@@ -89,18 +89,13 @@ class Quiz extends Component {
                 </CardButton>
                 <CardButton
                   success
-                  icon="checkmark-circle"
+                  icon="checkmark"
                   actionValue={true}
                   action={this.registerAnswer}
                 >
                   Correct
                 </CardButton>
-                <CardButton
-                  danger
-                  icon="close-circle"
-                  actionValue={false}
-                  action={this.registerAnswer}
-                >
+                <CardButton danger icon="close" actionValue={false} action={this.registerAnswer}>
                   Incorrect
                 </CardButton>
               </Fragment>
@@ -124,15 +119,10 @@ class Quiz extends Component {
                 <Text style={{ fontSize: 35 }}>{calcPercent(correct, totalCards)}%</Text>
               </Body>
             </CardItem>
-            <CardButton light icon="information-circle" action={this.reset}>
+            <CardButton light icon="refresh" action={this.reset}>
               Try again
             </CardButton>
-            <CardButton
-              light
-              icon="information-circle"
-              action={this.redirect}
-              actionValue={deck.title}
-            >
+            <CardButton light icon="arrow-back" action={this.redirect} actionValue={deck.title}>
               Back to deck
             </CardButton>
           </Card>

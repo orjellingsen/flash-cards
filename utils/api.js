@@ -43,9 +43,7 @@ export function saveDeckTitle(title) {
 
 export function removeDeck(title) {
   return AsyncStorage.getItem(DECK_KEY).then(decks => {
-    const data = JSON.parse(decks)
-    data[title] = undefined
-    delete data[title]
+    const { [title]: _, ...data } = JSON.parse(decks)
     AsyncStorage.setItem(DECK_KEY, JSON.stringify(data))
   })
 }
