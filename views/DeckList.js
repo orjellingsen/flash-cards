@@ -22,10 +22,11 @@ class DeckList extends Component {
 
   render() {
     const { decks } = this.props
+    console.log(decks)
     return (
       <Content padder>
         <H2>All Decks:</H2>
-        {decks ? (
+        {decks &&
           Object.entries(decks).map(([title, { questions }]) => {
             return (
               <Card key={title}>
@@ -47,9 +48,11 @@ class DeckList extends Component {
                 />
               </Card>
             )
-          })
-        ) : (
-          <Text>There are no decks to display. Please add a new deck.</Text>
+          })}
+        {Object.keys(decks).length === 0 && (
+          <Text>
+            There are no decks in your collection. Get started by adding a new deck {':)'}
+          </Text>
         )}
       </Content>
     )
