@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Icon, Text } from 'native-base'
-import { styles } from '../views/styles'
+import { styles } from './styles'
 
 export default function SubmitButton({ children, icon, action, ...rest }) {
   return (

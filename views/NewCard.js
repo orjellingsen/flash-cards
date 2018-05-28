@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Content, Form, Item, Input, Label } from 'native-base'
-import { NavigationActions } from 'react-navigation'
 import { addCardToDeck } from '../utils/api'
-import { styles } from './styles'
 import SubmitButton from '../components/SubmitButton'
 import { connect } from 'react-redux'
 import { addCard } from '../actions'
+import { redirect } from '../utils/helpers'
 
 class NewCard extends Component {
   state = {
@@ -15,20 +14,14 @@ class NewCard extends Component {
   }
 
   onSubmit = () => {
-    const { title } = this.props.navigation.state.params
-    addCardToDeck(title, { ...this.state }).then(card => this.props.dispatch(addCard(card, title)))
-    this.toHome(title)
+    const { navigation, dispatch } = this.props
+    const { title } = navigation.state.params
+    addCardToDeck(title, { ...this.state }).then(card => dispatch(addCard(card, title)))
+    redirect(navigation)({ title, path: 'IndividualDeck' })
   }
 
-  onChange = (value, key) => {
+  onChange = (key, value) => {
     this.setState(() => ({ [key]: value }))
-  }
-
-  toHome = title => {
-    const { navigation } = this.props
-    navigation.navigate('IndividualDeck', {
-      title,
-    })
   }
 
   render() {
@@ -39,11 +32,11 @@ class NewCard extends Component {
         <Form>
           <Item floatingLabel>
             <Label>Question</Label>
-            <Input value={question} onChangeText={value => this.onChange(value, 'question')} />
+            <Input value={question} onChangeText={value => this.onChange('question', value)} />
           </Item>
           <Item floatingLabel>
             <Label>Answer</Label>
-            <Input value={answer} onChangeText={value => this.onChange(value, 'answer')} />
+            <Input value={answer} onChangeText={value => this.onChange('answer', value)} />
           </Item>
           <SubmitButton info icon="add-circle" action={this.onSubmit}>
             Add Card

@@ -1,18 +1,17 @@
 import React from 'react'
-import { CardItem, Left, Right, Text } from 'native-base'
-import { styles } from '../views/styles'
+import { CardItem, Left, Right, Text, H3 } from 'native-base'
 
-export default function QuizHeader({ children, question, questionTotal }) {
-  return (
-    <CardItem header>
-      <Left>
-        <Text style={styles.header}>{children}</Text>
-      </Left>
-      <Right>
-        <Text>
-          {question}/{questionTotal}
-        </Text>
-      </Right>
-    </CardItem>
-  )
-}
+const QuizHeader = ({ children, question, questionTotal }) => (
+  <CardItem header>
+    <Left>
+      <H3>{children}</H3>
+    </Left>
+    <Right>
+      <Text>
+        {question}/{questionTotal}
+      </Text>
+    </Right>
+  </CardItem>
+)
+
+export default QuizHeader

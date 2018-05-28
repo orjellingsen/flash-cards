@@ -2,25 +2,22 @@ import React, { Component, Fragment } from 'react'
 import { AsyncStorage } from 'react-native'
 import { Text, Content, Card, SwipeRow, Button, Icon, H2 } from 'native-base'
 import { getDecks, removeDeck } from '../utils/api'
-import Deck from '../components/Deck'
 import { receiveDecks, deleteDeck } from '../actions'
 import { connect } from 'react-redux'
+import Deck from '../components/Deck'
+import { redirect } from '../utils/helpers'
 
 class DeckList extends Component {
-  state = {
-    decks: null,
-  }
-
   componentDidMount() {
     getDecks().then(decks => this.props.dispatch(receiveDecks(decks)))
   }
 
   navigate = (path, title) => {
-    this.props.navigation.navigate(path, { title })
+    redirect(this.props.navigation)({ path, title })
   }
 
   removeDeck = title => {
-    removeDeck(title).then(_ => this.props.dispatch(deleteDeck(title)))
+    removeDeck(title).then(() => this.props.dispatch(deleteDeck(title)))
   }
 
   render() {

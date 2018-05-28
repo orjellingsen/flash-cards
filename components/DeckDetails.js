@@ -1,13 +1,13 @@
 import React from 'react'
 import { CardItem, Body, Text, H1 } from 'native-base'
 import { cardText } from '../utils/helpers'
-import { styles } from '../views/styles'
+import { styles } from './styles'
 
-export default function DeckInfo({ deck: { title, questions } }) {
+const DeckInfo = ({ deck: { title, questions } }) => {
   const cardAmount = questions.length
   return (
     <CardItem header>
-      <Body style={{ alignItems: 'center', marginTop: 20, marginBottom: 20 }}>
+      <Body padder style={{ alignItems: 'center' }}>
         <H1>{title}</H1>
         <Text style={styles.largeText}>{cardAmount}</Text>
         <Text style={styles.smallText}>{cardText(cardAmount)}</Text>
@@ -15,3 +15,5 @@ export default function DeckInfo({ deck: { title, questions } }) {
     </CardItem>
   )
 }
+
+export default DeckInfo

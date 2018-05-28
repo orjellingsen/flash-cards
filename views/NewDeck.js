@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Content, Form, Item, Input, Label, H2 } from 'native-base'
-import { NavigationActions } from 'react-navigation'
 import { saveDeckTitle } from '../utils/api'
+import { redirect } from '../utils/helpers'
 import SubmitButton from '../components/SubmitButton'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
@@ -14,25 +14,20 @@ class NewDeck extends Component {
   state = initialState
 
   onSubmit = () => {
+    const { dispatch, navigation } = this.props
     const { title } = this.state
     saveDeckTitle(title)
-      .then(deck => this.props.dispatch(addDeck(deck)))
-      .then(() => this.redirect(title))
+      .then(deck => dispatch(addDeck(deck)))
+      .then(() => redirect(navigation)({ title, path: 'IndividualDeck' }))
     this.resetForm()
   }
 
-  onChange = title => {
-    this.setState(() => ({ title }))
+  onChange = (key, value) => {
+    this.setState(() => ({ [key]: value }))
   }
 
   resetForm = () => {
     this.setState(() => initialState)
-  }
-
-  redirect = title => {
-    this.props.navigation.navigate('IndividualDeck', {
-      title,
-    })
   }
 
   render() {
@@ -43,7 +38,7 @@ class NewDeck extends Component {
         <Form>
           <Item floatingLabel>
             <Label>Title</Label>
-            <Input value={title} onChangeText={title => this.onChange(title)} />
+            <Input value={title} onChangeText={value => this.onChange('title', value)} />
           </Item>
           <SubmitButton info icon="add-circle" action={this.onSubmit}>
             Create

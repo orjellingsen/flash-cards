@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Content, Card, Body, Button, Text, CardItem, Left, Right } from 'native-base'
-import { calcPercent } from '../utils/helpers'
-import { styles } from './styles'
+import { calcPercent, redirect } from '../utils/helpers'
 import CardButton from '../components/CardButton'
 import QuizContent from '../components/QuizContent'
 import QuizHeader from '../components/QuizHeader'
@@ -13,7 +12,6 @@ const initialState = {
   cardNumber: 0,
   card: null,
   correct: 0,
-  incorrect: 0,
 }
 class Quiz extends Component {
   state = initialState
@@ -46,27 +44,21 @@ class Quiz extends Component {
   }
 
   registerAnswer = answer => {
-    this.setState(
-      () =>
-        answer === true
-          ? { correct: this.state.correct + 1 }
-          : { incorrect: this.state.incorrect + 1 }
-    )
+    if (answer === true) {
+      this.setState(() => ({ correct: this.state.correct + 1 }))
+    }
     this.nextQuestion()
   }
 
-  reset = () => {
+  resetQuiz = () => {
     this.setState(() => ({
       ...initialState,
       card: this.props.deck.questions[0],
     }))
   }
 
-  redirect = title => {
-    const { navigation } = this.props
-    navigation.navigate('IndividualDeck', {
-      title,
-    })
+  redirectToDeck = title => {
+    redirect(this.props.navigation)({ title, path: 'IndividualDeck' })
   }
 
   render() {
@@ -95,7 +87,7 @@ class Quiz extends Component {
                 >
                   Correct
                 </CardButton>
-                <CardButton danger icon="close" actionValue={false} action={this.registerAnswer}>
+                <CardButton danger icon="close" action={this.registerAnswer}>
                   Incorrect
                 </CardButton>
               </Fragment>
@@ -119,10 +111,15 @@ class Quiz extends Component {
                 <Text style={{ fontSize: 35 }}>{calcPercent(correct, totalCards)}%</Text>
               </Body>
             </CardItem>
-            <CardButton light icon="refresh" action={this.reset}>
+            <CardButton light icon="refresh" action={this.resetQuiz}>
               Try again
             </CardButton>
-            <CardButton light icon="arrow-back" action={this.redirect} actionValue={deck.title}>
+            <CardButton
+              light
+              icon="arrow-back"
+              action={this.redirectToDeck}
+              actionValue={deck.title}
+            >
               Back to deck
             </CardButton>
           </Card>
@@ -133,9 +130,8 @@ class Quiz extends Component {
 }
 
 function mapStateToProps(decks, { navigation }) {
-  const { title } = navigation.state.params
   return {
-    deck: decks[title],
+    deck: decks[navigation.state.params.title],
   }
 }
 
