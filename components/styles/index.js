@@ -12,11 +12,17 @@ export const styles = StyleSheet.create({
   },
   largeText: {
     fontSize: 35,
+    textAlign: 'center',
   },
   quote: {
     padding: 20,
     alignContent: 'center',
     fontSize: 16,
+    color: gray,
+    textAlign: 'center',
+  },
+  smallText: {
+    fontSize: 12,
     color: gray,
     textAlign: 'center',
   },

@@ -7,9 +7,7 @@ const QuizHeader = ({ children, question, questionTotal }) => (
       <H3>{children}</H3>
     </Left>
     <Right>
-      <Text>
-        {question}/{questionTotal}
-      </Text>
+      <Text style={{ fontWeight: 'bold' }}>{questionTotal - question} remaining</Text>
     </Right>
   </CardItem>
 )

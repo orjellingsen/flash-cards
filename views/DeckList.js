@@ -6,6 +6,8 @@ import { receiveDecks, deleteDeck } from '../actions'
 import { connect } from 'react-redux'
 import Deck from '../components/Deck'
 import { redirect } from '../utils/helpers'
+import { gray } from '../utils/colors'
+import { styles } from '../components/styles'
 
 class DeckList extends Component {
   componentDidMount() {
@@ -27,32 +29,32 @@ class DeckList extends Component {
       <Content padder>
         <H2>All Decks:</H2>
         {decks &&
-          Object.entries(decks).map(([title, { questions }]) => {
-            return (
-              <Card key={title}>
-                <SwipeRow
-                  rightOpenValue={-75}
-                  right={
-                    <Button danger onPress={() => this.removeDeck(title)}>
-                      <Icon name="trash" />
-                    </Button>
-                  }
-                  body={
-                    <Deck
-                      navigate={this.navigate}
-                      path="IndividualDeck"
-                      title={title}
-                      questions={questions.length}
-                    />
-                  }
-                />
-              </Card>
-            )
-          })}
-        {Object.keys(decks).length === 0 && (
-          <Text>
+          Object.entries(decks).map(([title, { questions }]) => (
+            <Card key={title}>
+              <SwipeRow
+                rightOpenValue={-75}
+                right={
+                  <Button danger onPress={() => this.removeDeck(title)}>
+                    <Icon name="trash" />
+                  </Button>
+                }
+                body={
+                  <Deck
+                    navigate={this.navigate}
+                    path="IndividualDeck"
+                    title={title}
+                    questions={questions.length}
+                  />
+                }
+              />
+            </Card>
+          ))}
+        {Object.keys(decks).length === 0 ? (
+          <Text style={{ textAlign: 'center', marginTop: 20 }}>
             There are no decks in your collection. Get started by adding a new deck {':)'}
           </Text>
+        ) : (
+          <Text style={styles.smallText}>Swipe left on a deck to delete it</Text>
         )}
       </Content>
     )

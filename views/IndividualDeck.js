@@ -30,13 +30,13 @@ class IndividualDeck extends Component {
               actionValue="Quiz"
               action={this.navigate}
             >
-              Start Quiz
+              Start a Quiz
             </CardButton>
             {!questionsExist && (
               <Text style={{ textAlign: 'center' }}>Please add a new card to get started.</Text>
             )}
             <CardButton icon="add-circle" light actionValue="NewQuestion" action={this.navigate}>
-              Add Card
+              Create New Card
             </CardButton>
           </Card>
         )}
