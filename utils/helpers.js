@@ -32,13 +32,14 @@ export function getRandomQuote() {
   return quotes[randomNumber]
 }
 
-// For notifications, I am reusing the code provided in the Udacity React Native course
+// The following function was obtained from the Udacity project UdaciFitness
 export function clearLocalNotifications() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
     Notifications.cancelAllScheduledNotificationsAsync
   )
 }
 
+// The following function was obtained from the Udacity project UdaciFitness
 export function createNotification() {
   return {
     title: 'Take a quiz!',
@@ -55,6 +56,7 @@ export function createNotification() {
   }
 }
 
+// The following function was obtained from the Udacity project UdaciFitness
 export function setLocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
