@@ -1,15 +1,20 @@
-import React, { Component, Fragment } from 'react'
-import { AsyncStorage } from 'react-native'
+import React, { Component } from 'react'
 import { Text, Content, Card, SwipeRow, Button, Icon, H2 } from 'native-base'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { getDecks, removeDeck } from '../utils/api'
 import { receiveDecks, deleteDeck } from '../actions'
-import { connect } from 'react-redux'
 import Deck from '../components/Deck'
 import { redirect } from '../utils/helpers'
-import { gray } from '../utils/colors'
 import { styles } from '../components/styles'
 
 class DeckList extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    navigation: PropTypes.func.isRequired,
+    decks: PropTypes.shape({}).isRequired,
+  }
+
   componentDidMount() {
     getDecks().then(decks => this.props.dispatch(receiveDecks(decks)))
   }
@@ -24,7 +29,6 @@ class DeckList extends Component {
 
   render() {
     const { decks } = this.props
-    console.log(decks)
     return (
       <Content padder>
         <H2>All Decks:</H2>

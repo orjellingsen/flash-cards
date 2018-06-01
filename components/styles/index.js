@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { gray } from '../../utils/colors'
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     marginBottom: 5,
@@ -27,3 +27,5 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
 })
+
+export default styles

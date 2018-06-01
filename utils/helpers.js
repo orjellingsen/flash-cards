@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native'
 import { Notifications, Permissions } from 'expo'
+
 const NOTIFICATION_KEY = 'FlashCards:notifications'
 
 export function cardText(amount) {
@@ -7,11 +8,12 @@ export function cardText(amount) {
 }
 
 export function calcPercent(part, total) {
-  return Math.round(part / total * 100)
+  const percent = part / total
+  return Math.round(percent * 100)
 }
 
 export function redirect(navigation) {
-  return function({ path, title }) {
+  return ({ path, title }) => {
     navigation.navigate(path, { title })
   }
 }
@@ -65,7 +67,7 @@ export function setLocalNotification() {
         Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
           if (status === 'granted') {
             Notifications.cancelAllScheduledNotificationsAsync()
-            let tomorrow = new Date()
+            const tomorrow = new Date()
             tomorrow.setDate(tomorrow.getDate() + 1)
             tomorrow.setHours(20)
             tomorrow.setMinutes(0)

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Content, Card, Body, Button, Text, CardItem, Left, Right } from 'native-base'
+import PropTypes from 'prop-types'
+import { Content, Card, Body, Text, CardItem } from 'native-base'
 import {
   calcPercent,
   redirect,
@@ -20,6 +21,14 @@ const initialState = {
   correct: 0,
 }
 class Quiz extends Component {
+  static propTypes = {
+    navigation: PropTypes.func.isRequired,
+    deck: PropTypes.shape({
+      title: PropTypes.string,
+      questions: PropTypes.arrayOf({}),
+    }).isRequired,
+  }
+
   state = initialState
 
   static getDerivedStateFromProps({ deck }, { card, cardNumber }) {
@@ -86,12 +95,7 @@ class Quiz extends Component {
                 <CardButton light icon="help-circle" action={this.toggleCard}>
                   Show Question
                 </CardButton>
-                <CardButton
-                  success
-                  icon="checkmark"
-                  actionValue={true}
-                  action={this.registerAnswer}
-                >
+                <CardButton success icon="checkmark" actionValue action={this.registerAnswer}>
                   Correct
                 </CardButton>
                 <CardButton danger icon="close" action={this.registerAnswer}>

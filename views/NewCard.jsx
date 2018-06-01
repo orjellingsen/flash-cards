@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import PropTypes from 'prop-types'
 import { Content, Form, Item, Input, Label } from 'native-base'
+import { connect } from 'react-redux'
 import { addCardToDeck } from '../utils/api'
 import SubmitButton from '../components/SubmitButton'
-import { connect } from 'react-redux'
 import { addCard } from '../actions'
 import { redirect } from '../utils/helpers'
 
 class NewCard extends Component {
+  static propTypes = {
+    navigation: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  }
+
   state = {
     question: '',
     answer: '',
@@ -26,7 +31,6 @@ class NewCard extends Component {
 
   render() {
     const { question, answer } = this.state
-    const { title } = this.props.navigation.state.params
     return (
       <Content padder>
         <Form>

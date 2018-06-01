@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { Content, Card, Text } from 'native-base'
 import CardButton from '../components/CardButton'
 import DeckDetails from '../components/DeckDetails'
-import { connect } from 'react-redux'
 import { redirect } from '../utils/helpers'
 
 class IndividualDeck extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return { title: navigation.state.params.title }
+  static propTypes = {
+    navigation: PropTypes.func.isRequired,
+    deck: PropTypes.shape({}).isRequired,
   }
+
+  static navigationOptions = ({ navigation }) => ({ title: navigation.state.params.title })
 
   navigate = path => {
     const { navigation } = this.props
@@ -17,7 +21,7 @@ class IndividualDeck extends Component {
   }
 
   render() {
-    const { navigation, deck } = this.props
+    const { deck } = this.props
     const questionsExist = deck.questions.length !== 0
     return (
       <Content padder>

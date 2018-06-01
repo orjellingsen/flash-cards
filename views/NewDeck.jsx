@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { Content, Form, Item, Input, Label, H2 } from 'native-base'
 import { saveDeckTitle } from '../utils/api'
 import { redirect } from '../utils/helpers'
 import SubmitButton from '../components/SubmitButton'
 import { addDeck } from '../actions'
-import { connect } from 'react-redux'
 
 const initialState = {
   title: '',
 }
 
 class NewDeck extends Component {
+  static propTypes = {
+    navigation: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  }
+
   state = initialState
 
   onSubmit = () => {

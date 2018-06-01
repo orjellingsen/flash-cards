@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { StatusBar, View } from 'react-native'
+import PropTypes from 'prop-types'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
@@ -15,14 +16,17 @@ import NewDeck from './views/NewDeck'
 import NewCard from './views/NewCard'
 import Quiz from './views/Quiz'
 
-const FlashCardsStatusBar = ({ backgroundColor, ...props }) => {
-  return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-    </View>
-  )
+const FlashCardsStatusBar = ({ backgroundColor, ...props }) => (
+  <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+  </View>
+)
+
+FlashCardsStatusBar.propTypes = {
+  backgroundColor: PropTypes.string.isRequired,
 }
 
+/* eslint-disable react/display-name, react/prop-types */
 const Tabs = createBottomTabNavigator(
   {
     Decks: {
@@ -55,6 +59,7 @@ const Tabs = createBottomTabNavigator(
     },
   }
 )
+/* eslint-enable react/display-name, react/prop-types */
 
 const defaultStackOptions = {
   headerTintColor: white,

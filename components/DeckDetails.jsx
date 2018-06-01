@@ -1,5 +1,6 @@
 import React from 'react'
 import { CardItem, Body, Text, H1 } from 'native-base'
+import PropTypes from 'prop-types'
 import { cardText } from '../utils/helpers'
 import { styles } from './styles'
 
@@ -14,6 +15,13 @@ const DeckInfo = ({ deck: { title, questions } }) => {
       </Body>
     </CardItem>
   )
+}
+
+DeckInfo.propTypes = {
+  deck: PropTypes.shape({
+    title: PropTypes.string,
+    questions: PropTypes.arrayOf({}),
+  }).isRequired,
 }
 
 export default DeckInfo

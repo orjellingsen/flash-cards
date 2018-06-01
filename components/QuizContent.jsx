@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { CardItem, Body, Text } from 'native-base'
 
 const QuizContent = ({ children }) => (
@@ -8,5 +9,9 @@ const QuizContent = ({ children }) => (
     </Body>
   </CardItem>
 )
+
+QuizContent.propTypes = {
+  children: PropTypes.node.isRequired,
+}
 
 export default QuizContent
